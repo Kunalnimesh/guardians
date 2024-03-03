@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Assistance Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="#000000" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position-x: calc(100% - 12px);
+            background-position-y: 50%;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .disease-textbox {
+            display: none;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Medical Assistance Form</h1>
+    <form action="submit.php" method="POST">
+        <label for="clientName">Client's Name:</label><br>
+        <input type="text" id="clientName" name="clientName" required><br><br>
+
+        <label for="assistedPersonName">Name of Assisted Person:</label><br>
+        <input type="text" id="assistedPersonName" name="assistedPersonName" required><br><br>
+
+        <label for="fees">Fees You're Comfortable With:</label><br>
+        <input type="text" id="fees" name="fees" required><br><br>
+
+        <label for="location">Location of Assisted Person:</label><br>
+        <input type="text" id="location" name="location" required><br>
+        <div id="map"></div><br>
+        <input type="checkbox" id="confirmLocation" name="confirmLocation">
+        <label for="confirmLocation">Confirm Location</label><br><br>
+        <label for="age">Age of Assisted Person:</label><br>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="gender">Gender of Assisted Person:</label><br>
+        <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select><br><br>
+
+        <label for="diseases">Diseases:</label><br>
+        <input type="radio" id="diseaseYes" name="diseasesOption" value="yes" onclick="showDiseaseTextBox()"> Yes
+        <input type="radio" id="diseaseNo" name="diseasesOption" value="no" checked onclick="hideDiseaseTextBox()"> No<br>
+        <div class="disease-textbox">
+            <input type="text" id="diseases" name="diseases" placeholder="Enter diseases"><br>
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function initMap() {
+            var input = document.getElementById('location');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+
+            // Uncomment the following lines if you want to bias the autocomplete
+            // autocomplete.setFields(['address_components', 'geometry']);
+            // autocomplete.setTypes(['address']);
+
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    console.error("Autocomplete's returned place contains no geometry");
+                    return;
+                }
+                // Uncomment the following line if you want to display the map
+                // showMap(place.geometry.location.lat(), place.geometry.location.lng());
+            });
+        }
+
+        function showMap(lat, lng) {
+            var mapDiv = document.getElementById('map');
+            var map = new google.maps.Map(mapDiv, {
+                center: {lat: lat, lng: lng},
+                zoom: 15
+            });
+            var marker = new google.maps.Marker({
+                position: {lat: lat, lng: lng},
+                map: map
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
+</body>
+</html>
+</body>
+</html>

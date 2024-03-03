@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPI Payment Gateway</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode"></script>
+</head>
+<body>
+<h1>Scan the QR Code to make a payment</h1>
+<div id="qrcode"></div>
+<p id="paymentStatus"></p>
+<script>
+// Function to generate a random payment amount (for demonstration purposes)
+function generatePaymentAmount() {
+    return Math.floor(Math.random() * 1000) + 1; // Random amount between 1 and 1000
+}
+
+// Generate UPI payment URL with the amount
+var paymentAmount = generatePaymentAmount();
+var upiURL = 'upi://pay?pa=yourmerchant@upi&pn=Merchant%20Name&tn=Payment%20for%20Goods&am=' + paymentAmount;
+
+// Generate QR code with the UPI payment URL
+new QRCode(document.getElementById("qrcode"), upiURL);
+
+// Function to handle successful payment
+function handlePaymentSuccess() {
+    document.getElementById("paymentStatus").innerText = 'Payment successful!';
+}
+
+// Function to handle failed payment
+function handlePaymentFailure() {
+    document.getElementById("paymentStatus").innerText = 'Payment failed. Please try again.';
+}
+
+// Function to simulate payment confirmation (for demonstration purposes)
+function confirmPayment() {
+    // Simulate a successful payment after 3 seconds
+    setTimeout(function() {
+        handlePaymentSuccess();
+    }, 3000);
+}
+</script>
+<button onclick="confirmPayment()">Confirm Payment</button>
+</body>
+</html>

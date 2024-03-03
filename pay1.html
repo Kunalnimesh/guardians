@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway</title>
+    <style>
+        /* Basic styling for demonstration */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Payment Gateway</h1>
+    <form id="paymentForm">
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" placeholder="Enter card number" required>
+        <label for="cardHolderName">Cardholder Name:</label>
+        <input type="text" id="cardHolderName" placeholder="Enter cardholder name" required>
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="text" id="expiryDate" placeholder="MM/YY" required>
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" placeholder="Enter CVV" required>
+        <button type="submit">Submit Payment</button>
+    </form>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Collect payment details
+            var cardNumber = document.getElementById('cardNumber').value;
+            var cardHolderName = document.getElementById('cardHolderName').value;
+            var expiryDate = document.getElementById('expiryDate').value;
+            var cvv = document.getElementById('cvv').value;
+
+            // Perform validation (you may add more validation logic here)
+
+            // Simulate payment processing (replace with actual payment processing logic)
+            alert('Payment Details:\nCard Number: ' + cardNumber + '\nCardholder Name: ' + cardHolderName + '\nExpiry Date: ' + expiryDate + '\nCVV: ' + cvv + '\n\nThis is a demo. No real transaction is processed.');
+        });
+    </script>
+</body>
+</html>
